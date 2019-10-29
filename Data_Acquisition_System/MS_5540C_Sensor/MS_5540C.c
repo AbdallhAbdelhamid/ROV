@@ -8,6 +8,7 @@
 #include "MS_5540C.h"
 
 // Spi_Config_Type spi_config = {F_CPU_64,FALLING,DOUBLE};
+
 static uint16 C1,C2,C3,C4,C5,C6; // Paramaters to get from calibration words.
 
 void reset_sensor()
@@ -18,6 +19,8 @@ void reset_sensor()
 	spi_send_byte(0x40);	// reset it done.
 
 }
+
+#ifdef CALIBRATE
 
 void get_calb_parameters( void ) //calculates parameters and calibrations for sensor.
 {
@@ -62,6 +65,7 @@ void get_calb_parameters( void ) //calculates parameters and calibrations for se
 
 }
 
+#endif
 static uint16 read_Pressure_raw()
 {
 	reset_sensor();
