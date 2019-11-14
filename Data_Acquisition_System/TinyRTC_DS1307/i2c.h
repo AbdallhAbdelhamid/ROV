@@ -1,8 +1,8 @@
 /*
- * i2c.h
- *
+ *  I2C Module Source file
+ *  Target : ATMEGA32
  *  Created on: Oct 23, 2019
- *      Author: Al-Shimaa
+ *      Author: Abdallh
  */
 
 #ifndef I2C_H_
