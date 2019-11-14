@@ -24,7 +24,7 @@
 #include "common_macros.h"
 #include "micro_config.h"
 #include "std_types.h"
-#include "spi2.h"
+#include "spi.h"
 
 #ifdef serial_debug
 #include "uart.h"
