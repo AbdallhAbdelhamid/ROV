@@ -1,12 +1,13 @@
 /*
  * spi.h
- *	Module : Configurable SPI Driver.h
- *  Created on: Oct 23, 2019
- *  Author: Abdallh
+ * Module : Configurable SPI  Driver Header file
+ * Target : ATMEGA32
+ * Created on: Oct 23, 2019
+ * Author: Abdallh
  */
 
-#ifndef SPI2_H_
-#define SPI2_H_
+#ifndef SPI_H_
+#define SPI_H_
 
 #include "std_types.h"
 #include "common_macros.h"
@@ -38,9 +39,9 @@ typedef struct
 void spi_init_master(Spi_Config_Type* config_ptr);
 void spi_init_slave();
 void spi_send_byte(const uint8 byte);
-uint8 spi_recieve_byte();
+uint8 spi_recieve_byte(uint8 byte);
 void spi_send_string(uint8* string);
 void spi_recieve_string(uint8* string);
 
 
-#endif /* SPI2_H_ */
+#endif /* SPI_H_ */
