@@ -10,7 +10,7 @@
 
 // if u dont want to send output over serial interface , comment out next line
 
-//#define send_serial
+#define send_serial
 
 /********************************* INCLUDES ***********************************/
 #include "common_macros.h"
