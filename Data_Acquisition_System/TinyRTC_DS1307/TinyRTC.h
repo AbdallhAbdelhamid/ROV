@@ -2,7 +2,7 @@
  * TinyRTC.h
  *
  *  Created on: Nov 14, 2019
- *      Author: Al-Shimaa
+ *      Author: Abdallh
  */
 
 #ifndef TINYRTC_H_
