@@ -1,11 +1,13 @@
 /*
- * spi.c
- *	Module : Configurable SPI Driver.c
+ * 	spi.c
+ *	Module : Configurable SPI  Driver Source File
+ *	Target : ATMEGA32
  *  Created on: Oct 23, 2019
  *  Author: Abdallh
  */
 
-#include "spi2.h"
+#include "spi.h"
+
 
 
 void spi_init_master(Spi_Config_Type* config_ptr)
@@ -52,8 +54,9 @@ void spi_send_byte(const uint8 byte)
 	while (BIT_IS_CLEAR(SPSR,SPIF)) {} // wait until SPI finish the transmit.
 }
 
-uint8 spi_recieve_byte(void)
+uint8 spi_recieve_byte(uint8 byte)
 {
+	SPDR = byte;					   //
 	while (BIT_IS_CLEAR(SPSR,SPIF)) {} // wait until SPI fully reads the data
 	return SPDR;
 }
@@ -71,11 +74,11 @@ void spi_send_string(uint8* string)
 void spi_recieve_string(uint8* string)
 {
 	uint8 i = 0;
-	string[i] = spi_recieve_byte();
+	string[i] = spi_recieve_byte(0x00);
 	while(string[i]!= '#' )
 	{
 		i++;
-		string[i]=spi_recieve_byte();
+		string[i]=spi_recieve_byte(0x00);
 	}
 	string[i] = '\0';
 
