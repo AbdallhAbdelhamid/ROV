@@ -1,0 +1,65 @@
+/*
+ * acq.c
+ *	MS_5540C Example file
+ *	Target : ATMEGA32
+ *  Created on: Nov 11, 2019
+ *  Author: Abdallh
+ */
+
+#define F_CPU 12000000UL
+#include "micro_config.h"
+#include "std_types.h"
+#include "common_macros.h"
+#include "uart.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "spi.h"
+#include "MS_5540C.h"
+
+char buffer2[12]= {0}; // buffer 2 for itoa function
+
+void print_serial(uint16);
+
+int main (void)
+{
+	UART_init();
+
+	// configration pointer to spi , SPI Speed = 375KHZ @ 12MHZ , FALLING edge , CLK = F_cpu/32 duo to double speed
+	Spi_Config_Type spi_config = {F_CPU_64,FALLING,DOUBLE};
+
+//	init spi with the configration pointer above.
+	spi_init_master(&spi_config);
+
+
+
+		// timer init Generate FREQ on OC0 as 32KHZ
+		TCNT0 = 0;	// init timer value = 0
+		OCR0 = 22;
+		DDRB = DDRB | (1<<PB3);	// set bit as output
+		TCCR0= (1<<FOC0) | (1<< WGM01 ) | (1<<CS01) | (1<<COM00);
+
+		// end timer
+
+		// get calibration parameters from MS5540c
+		_delay_ms(1000);
+
+
+	while(1)
+	{
+		MS5540c_read_pressure_temp();
+		UART_sendByte('\n');
+		UART_sendString("Temp in C     ");
+		print_serial(g_Temp_Real);
+		UART_sendByte('\n');
+		UART_sendString("Pressure In mmHG     ");
+		print_serial(g_PCOMPHG);
+		UART_sendByte('\n');
+		_delay_ms(1000);
+	}
+}
+
+void print_serial(uint16 word)
+{
+	itoa(word,buffer2,10);
+	UART_sendString(buffer2);
+}
